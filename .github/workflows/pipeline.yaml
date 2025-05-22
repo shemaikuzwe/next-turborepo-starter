@@ -1,0 +1,67 @@
+name: pipeline
+on:
+ push:
+   branches:
+     - "main"
+
+permissions:
+  packages: write
+
+jobs:
+  run-tests:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: "22"
+
+    - name: Enable Corepack and install pnpm
+      run: |
+        corepack enable
+        corepack prepare pnpm@9.0.0 --activate
+
+    - name: Install dependencies
+      run: pnpm install
+
+    - name: Build App
+      run: pnpm run build
+
+  build-and-push-image:
+  runs-on: ubuntu-latest
+  needs:
+    - run-tests
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Log in to the Container registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+  
+    - name: Build and push web image
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        file: web.Dockerfile
+        push: true
+        tags: |
+          ghcr.io/shemaikuzwe/next-turborepo-starter/next-web:latest
+          ghcr.io/shemaikuzwe/next-turborepo-starter/next-web:${{ github.sha }}
+
+    - name: Build and push docs image
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        file: docs.Dockerfile
+        push: true
+        tags: |
+          ghcr.io/shemaikuzwe/next-turborepo-starter/next-docs:latest
+          ghcr.io/shemaikuzwe/next-turborepo-starter/next-docs:${{ github.sha }}
+
