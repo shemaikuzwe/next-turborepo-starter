@@ -1,0 +1,16 @@
+services:
+ 
+  docs:
+    image: ghcr.io/shemaikuzwe/next-turborepo-starter/next-docs:${GIT_COMMIT_HASH:-latest}
+    ports:
+      - "3001:3000"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=PRODUCTION
+  web:
+    image: ghcr.io/shemaikuzwe/next-turborepo-starter/next-web:${GIT_COMMIT_HASH:-latest}
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=PRODUCTION

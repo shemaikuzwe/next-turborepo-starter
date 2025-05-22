@@ -54,3 +54,24 @@ jobs:
           tags: |
             ghcr.io/shemaikuzwe/next-turborepo-starter/next-docs:latest
             ghcr.io/shemaikuzwe/next-turborepo-starter/next-docs:${{ github.sha }}
+  deploy:
+    runs-on: ubuntu-latest
+    needs:
+      - build-and-push-image
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: create env file
+      run: |
+        echo "GIT_COMMIT_HASH=${{ github.sha }}" >> ./envfile
+
+    - name: Docker Stack Deploy
+      uses: cssnr/stack-deploy-action@v1
+      with:
+        name: next-turborepo-starter
+        file: docker-stack.yaml
+        host: ${{ secrets.HOST }}
+        user: deploy
+        ssh_key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+        env_file: ./envfile          
