@@ -10,8 +10,8 @@ RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
 COPY . .
 RUN pnpm install --frozen-lockfile
 
-# Prune for the docs app 
-RUN pnpm turbo prune docs --docker
+# Prune for the client app 
+RUN pnpm turbo prune client --docker
 
 # -----------------------------------
 FROM base AS installer
@@ -33,10 +33,10 @@ RUN addgroup --system --gid 1001 nodejs \
  && adduser --system --uid 1001 nextjs
 USER nextjs
 
-COPY --from=installer --chown=nextjs:nodejs /app/apps/docs/.next/standalone ./
-COPY --from=installer --chown=nextjs:nodejs /app/apps/docs/.next/static ./apps/docs/.next/static
-COPY --from=installer --chown=nextjs:nodejs /app/apps/docs/public ./apps/docs/public
+COPY --from=installer --chown=nextjs:nodejs /app/apps/client/.next/standalone ./
+COPY --from=installer --chown=nextjs:nodejs /app/apps/client/.next/static ./apps/client/.next/static
+COPY --from=installer --chown=nextjs:nodejs /app/apps/client/public ./apps/client/public
 
 EXPOSE 3000
 
-CMD ["node", "apps/docs/server.js"]
+CMD ["node", "apps/client/server.js"]
