@@ -1,8 +1,25 @@
 {
-  "extends": "@repo/typescript-config/react-library.json",
+  "extends": "@next-starter/typescript-config/react-library.json",
   "compilerOptions": {
-    "outDir": "dist"
+    "baseUrl": ".",
+    "paths": {
+      "@next-starter/ui/*": ["./src/*"]
+    }
   },
-  "include": ["src"],
+  "jsx": "preserve",
+  "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+  ],
+  "module": "ESNext",
+  "moduleResolution": "Bundler",
+  "allowJs": true,
+  "skipLibCheck": true,
+  "isolatedModules": true,
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
   "exclude": ["node_modules", "dist"]
 }
