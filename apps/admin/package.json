@@ -8,14 +8,18 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --max-warnings 0",
-    "check-types": "tsc --noEmit",  
+    "check-types": "tsc --noEmit",
     "clean": "rm -rf .next .turbo node_modules"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.0.1",
     "@next-starter/ui": "workspace:*",
+    "lucide-react": "^0.511.0",
     "next": "^15.3.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "react-hook-form": "^7.56.4",
+    "zod": "^3.25.28"
   },
   "devDependencies": {
     "@next-starter/eslint-config": "workspace:*",

@@ -1,0 +1,28 @@
+{
+    "extends": "@next-starter/typescript-config/react-library.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@next-starter/db/*": [
+                "./src/*"
+            ]
+        },
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "lib": [
+            "ESNext",
+            "DOM",
+            "DOM.Iterable"
+        ],
+        "target": "ES2022"
+    },
+    "include": [
+        "src"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}

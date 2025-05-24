@@ -6,6 +6,11 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "dev:admin":"turbo run dev --filter=admin",
+    "dev:client":"turbo run dev --filter=client",
+    "db:push":"turbo run db:push",
+    "db:generate":"turbo run db:generate",
+    "db:studio":"turbo run db:studio",
     "check-types": "turbo run check-types",
      "clean": "turbo run clean && rm -rf node_modules"
   },
