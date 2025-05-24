@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@next-starter/ui": "workspace:*",
+    "@next-starter/db": "workspace:*",
     "@tailwindcss/postcss": "^4.1.7",
     "lucide-react": "^0.511.0",
     "next": "^15.3.0",

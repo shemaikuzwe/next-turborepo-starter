@@ -1,5 +1,8 @@
 {
   "$schema": "https://turborepo.com/schema.json",
+   "globalDependencies": [
+    ".env*"
+  ],
   "tasks": {
     "build": {
       "dependsOn": [
@@ -11,7 +14,12 @@
       ],
       "outputs": [
         ".next/**",
-        "!.next/cache/**"
+        "!.next/cache/**",
+        "dist/**"
+      ],
+      "env": [
+        "NODE_ENV",
+        "NEXT_PUBLIC_*"
       ]
     },
     "lint": {
@@ -44,5 +52,9 @@
     "db:studio": {
       "cache": false
     }
-  }
+  },
+  "globalEnv": [
+    "NODE_ENV" ,
+    "NEXT_PUBLIC_*"
+  ]
 }

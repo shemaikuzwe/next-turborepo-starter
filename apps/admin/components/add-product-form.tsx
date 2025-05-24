@@ -9,10 +9,11 @@ import { Badge } from "@next-starter/ui/components/badge"
 import { Switch } from "@next-starter/ui/components/switch"
 import { Plus, Trash2 } from "lucide-react"
 import { Button } from "@next-starter/ui/components/button"
-import { useForm,useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AddProductFormValues, formSchema } from "@/lib/schema";
-
+import { addProduct } from "@/lib/action";
+import { toast } from "sonner"
 
 export default function AddProductForm() {
 
@@ -32,8 +33,10 @@ export default function AddProductForm() {
     name: "features",
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-   
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    await addProduct(data)
+    toast.success("Product added successfully")
+    // form.reset()
   }
 
   return (
@@ -58,7 +61,7 @@ export default function AddProductForm() {
                       <FormItem>
                         <FormLabel>Product Name</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., Basic Plan, Premium Plan" {...field} />
+                          <Input placeholder="Enter Product name" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -72,7 +75,7 @@ export default function AddProductForm() {
                       <FormItem>
                         <FormLabel>Price</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., $1,500" {...field} />
+                          <Input placeholder="Enter Product price" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -87,7 +90,7 @@ export default function AddProductForm() {
                     <FormItem>
                       <FormLabel>Description</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="e.g., Perfect for solo founders and early-stage startups." {...field} />
+                        <Textarea placeholder="Enter Product description" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -131,7 +134,7 @@ export default function AddProductForm() {
                         render={({ field }) => (
                           <FormItem className="flex-1">
                             <FormControl>
-                              <Input placeholder="e.g., Core MVP with essential features" {...field} />
+                              <Input placeholder="Feature" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
