@@ -1,0 +1,1 @@
+export { default } from "@next-starter/ui/postcss.config";

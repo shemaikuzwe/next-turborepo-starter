@@ -9,6 +9,7 @@
     "./components/*": "./src/components/*.tsx",
     "./hooks/*": "./src/hooks/*.ts",
     "./hooks": "./src/hooks/index.ts"
+    
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
