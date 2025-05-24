@@ -9,15 +9,15 @@ export const formSchema = z.object({
   }),
   description: z.string().min(4, {
     message: "Description must be at least 4 characters.",
-  }),
+  }).optional(),
   isPopular: z.boolean().optional(),
   features: z
     .array(
       z.object({
         text: z.string().min(1, "Feature text is required"),
-      }),
+      }).optional(),
     )
-    .min(1, "At least one feature is required")
+    .optional()
 })
 
 

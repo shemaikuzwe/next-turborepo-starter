@@ -14,17 +14,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { AddProductFormValues, formSchema } from "@/lib/schema";
 import { addProduct } from "@/lib/action";
 import { toast } from "sonner"
+import { useEffect, useTransition } from "react";
 
 export default function AddProductForm() {
-
+  const [isPending, startTransition] = useTransition()
   const form = useForm<AddProductFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       price: "",
-      description: "",
-      isPopular: false,
-      features: [{ text: "" }],
+      isPopular: false
+
     },
   })
 
@@ -34,11 +34,12 @@ export default function AddProductForm() {
   })
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    await addProduct(data)
-    toast.success("Product added successfully")
-    // form.reset()
+    startTransition(async () => {
+      await addProduct(data)
+      toast.success("Product added successfully")
+      form.reset()
+    })  
   }
-
   return (
     <div className="max-w-4xl mx-auto p-6">
       <Card>
@@ -59,7 +60,7 @@ export default function AddProductForm() {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Product Name</FormLabel>
+                        <FormLabel>Product Name <span className="text-red-500">* </span></FormLabel>
                         <FormControl>
                           <Input placeholder="Enter Product name" {...field} />
                         </FormControl>
@@ -73,7 +74,7 @@ export default function AddProductForm() {
                     name="price"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Price</FormLabel>
+                        <FormLabel>Price <span className="text-red-500">* </span></FormLabel>
                         <FormControl>
                           <Input placeholder="Enter Product price" {...field} />
                         </FormControl>
@@ -169,7 +170,7 @@ export default function AddProductForm() {
                       <ul className="mt-2 space-y-2">
                         {form.watch("features")?.map(
                           (feature, index) =>
-                            feature.text && (
+                            feature && feature.text && (
                               <li key={index} className="flex items-start gap-2 text-sm">
                                 <div className="rounded-sm bg-blue-500 p-0.5 shrink-0 mt-0.5">
                                   <div className="h-3 w-3 text-white" />
@@ -185,7 +186,7 @@ export default function AddProductForm() {
               </div>
 
               <Button type="submit" className="w-full" size="lg">
-                Create Product
+                {isPending ? "Creating..." : "Create Product"}
               </Button>
             </form>
           </Form>
