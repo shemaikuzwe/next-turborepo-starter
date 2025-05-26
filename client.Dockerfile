@@ -6,9 +6,12 @@ RUN apk update && apk add --no-cache libc6-compat
 WORKDIR /app
 
 RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN mkdir -p /pnpm && pnpm config set global-bin-dir /pnpm
 
 COPY . .
-RUN pnpm install --frozen-lockfile
+RUN pnpm add turbo --global
 
 # Prune for the client app 
 RUN pnpm turbo prune client --docker
@@ -20,9 +23,11 @@ WORKDIR /app
 RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
 
 COPY --from=builder /app/out/json/ .
-RUN pnpm install --frozen-lockfile
-
 COPY --from=builder /app/out/full/ .
+RUN pnpm install --frozen-lockfile
+RUN pnpm prisma generate --schema=./packages/db/prisma/schema.prisma
+
+
 RUN pnpm turbo run build
 
 # -----------------------------------

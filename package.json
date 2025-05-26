@@ -12,7 +12,7 @@
     "db:generate":"turbo run db:generate",
     "db:studio":"turbo run db:studio",
     "check-types": "turbo run check-types",
-     "clean": "turbo run clean && rm -rf node_modules"
+    "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {
     "prettier": "^3.5.3",

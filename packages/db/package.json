@@ -10,7 +10,6 @@
     "db:migrate": "prisma migrate dev --skip-generate",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
-    "db:seed": "tsx db/seed.ts",
     "check-types": "tsc --noEmit",
     "clean": "rm -rf .turbo node_modules"
   },

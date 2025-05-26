@@ -44,7 +44,7 @@ export default function AddProductForm() {
     <div className="max-w-4xl mx-auto p-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Add New Product</CardTitle>
+          <CardTitle className="text-2xl ">Add New Product</CardTitle>
           <CardDescription>Create a new pricing plan or product offering for your customers.</CardDescription>
         </CardHeader>
         <CardContent>

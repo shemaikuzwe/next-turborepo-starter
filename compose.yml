@@ -9,6 +9,7 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=PRODUCTION
+      - DATABASE_URL="postgresql://postgres:1234@localhost:5432/next_starter?schema=public"
   admin:
     build: 
       context: .
@@ -18,3 +19,4 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=PRODUCTION
+      - DATABASE_URL="postgresql://postgres:1234@localhost:5432/next_starter?schema=public"

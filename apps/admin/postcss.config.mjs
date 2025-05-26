@@ -1,1 +1,5 @@
-export { default } from "@next-starter/ui/postcss.config";
+const config = {
+  plugins: ["@tailwindcss/postcss"],
+};
+
+export default config;

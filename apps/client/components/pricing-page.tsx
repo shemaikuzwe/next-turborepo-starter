@@ -1,6 +1,7 @@
 import Pricing from "@/components/pricing"
 import { getProducts } from "@/lib/data"
 
+
 export default function PricingPage() {
   const productsPromise = getProducts()
   return (
