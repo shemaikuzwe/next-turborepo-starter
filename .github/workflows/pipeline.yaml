@@ -19,6 +19,9 @@ jobs:
         run: |
           corepack enable
           corepack prepare pnpm@9.0.0 --activate
+      - name: Create env file
+        run: |
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env    
       - name: Install dependencies
         run: pnpm install
       - name: Run generate
@@ -43,7 +46,8 @@ jobs:
         with:
           context: .
           file: admin.Dockerfile
-          args: --build-arg DATABASE_URL=${{ secrets.DATABASE_URL }}
+          build-args: |
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
           push: true
           tags: |
             ghcr.io/shemaikuzwe/next-turborepo-starter/next-web:latest
@@ -53,7 +57,8 @@ jobs:
         with:
           context: .
           file: client.Dockerfile
-          args: --build-arg DATABASE_URL=${{ secrets.DATABASE_URL }}
+          build-args: |
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
           push: true
           tags: |
             ghcr.io/shemaikuzwe/next-turborepo-starter/next-docs:latest
