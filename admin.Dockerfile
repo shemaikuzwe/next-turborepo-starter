@@ -29,12 +29,16 @@ COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/full/ .
 
 RUN pnpm install --frozen-lockfile
-
 RUN pnpm prisma generate --schema=./packages/db/prisma/schema.prisma
 
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
 
 # Build the admin app
 RUN pnpm turbo run build
+#Push changes to database
+RUN pnpm prisma db push --skip-generate --schema=./packages/db/prisma/schema.prisma
+
 
 # -----------------------------------
 FROM base AS runner
