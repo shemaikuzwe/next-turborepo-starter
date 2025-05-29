@@ -1,5 +1,8 @@
 FROM node:22-alpine AS base
 
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
+
 # -----------------------------------
 FROM base AS builder
 RUN apk update && apk add --no-cache libc6-compat
@@ -22,13 +25,12 @@ RUN apk update && apk add --no-cache libc6-compat
 WORKDIR /app
 RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
 
+
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/full/ .
 RUN pnpm install --frozen-lockfile
 RUN pnpm prisma generate --schema=./packages/db/prisma/schema.prisma
 
-ARG DATABASE_URL
-ENV DATABASE_URL=${DATABASE_URL}
 
 #Build the client app
 RUN pnpm turbo run build
