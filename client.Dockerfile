@@ -1,5 +1,12 @@
 FROM node:22-alpine AS base
 
+# DEBUG: Check if .env file was copied
+RUN echo "=== Checking for .env file in Docker ===" && \
+    ls -la .env || echo ".env file not found in Docker context" && \
+    echo "=== Checking DATABASE_URL ===" && \
+    printenv | grep DATABASE_URL || echo "DATABASE_URL not found in environment"
+
+    
 # -----------------------------------
 FROM base AS builder
 RUN apk update && apk add --no-cache libc6-compat
