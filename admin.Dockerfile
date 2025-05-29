@@ -1,6 +1,5 @@
 FROM node:22-alpine AS base
 
-
 # -----------------------------------
 FROM base AS builder
 RUN apk update && apk add --no-cache libc6-compat
@@ -20,10 +19,9 @@ RUN apk update && apk add --no-cache libc6-compat
 WORKDIR /app
 RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
 
-
-
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/full/ .
+COPY .env ./
 RUN pnpm install --frozen-lockfile
 RUN pnpm prisma generate --schema=./packages/db/prisma/schema.prisma
 
