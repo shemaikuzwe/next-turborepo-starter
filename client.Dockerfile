@@ -1,12 +1,10 @@
 FROM node:22-alpine AS base
 
-# DEBUG: Check if .env file was copied
-RUN echo "=== Checking for .env file in Docker ===" && \
-    ls -la .env || echo ".env file not found in Docker context" && \
-    echo "=== Checking DATABASE_URL ===" && \
-    printenv | grep DATABASE_URL || echo "DATABASE_URL not found in environment"
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
 
-    
+RUN echo $DATABASE_URL
+
 # -----------------------------------
 FROM base AS builder
 RUN apk update && apk add --no-cache libc6-compat
@@ -44,6 +42,7 @@ RUN pnpm prisma db push --skip-generate --schema=./packages/db/prisma/schema.pri
 # -----------------------------------
 FROM base AS runner
 WORKDIR /app
+
 
 RUN addgroup --system --gid 1001 nodejs \
  && adduser --system --uid 1001 nextjs
