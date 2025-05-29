@@ -1,7 +1,5 @@
 FROM node:22-alpine AS base
 
-ARG DATABASE_URL
-ENV DATABASE_URL=${DATABASE_URL}
 
 # -----------------------------------
 FROM base AS builder
