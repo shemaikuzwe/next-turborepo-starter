@@ -61,7 +61,11 @@ export default function Pricing({ productsPromise }: Props) {
               <p className="mt-4 text-gray-600">{product.description}</p>
             )}
 
-            <Button variant={product.isPopular ? "default" : "outline"} size="lg">
+            <Button
+              variant={product.isPopular ? "default" : "outline"}
+              size="lg"
+              className="w-full mt-6"
+            >
               Get Started
             </Button>
 

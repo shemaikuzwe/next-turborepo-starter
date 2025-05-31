@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@next-starter/ui/globals.css"
 import { Toaster } from "@next-starter/ui/components/sonner";
+import { SidebarProvider, SidebarTrigger } from "@next-starter/ui/components/sidebar";
+import { Navbar } from "@/components/sidebar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,8 +27,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
-        <Toaster/>
+        <SidebarProvider>
+          <div className="flex h-screen ga-2 w-full">
+            <Navbar />
+            <main className="flex h-screen w-full">
+              <SidebarTrigger className="h-5 w-5" />
+              {children}
+            </main>
+          </div>
+          <Toaster />
+        </SidebarProvider>
       </body>
     </html>
   );

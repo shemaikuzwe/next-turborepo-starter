@@ -12,8 +12,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Client",
-  description: "Next starter client app",
+  title: "SaaSify - The Complete SaaS Solution",
+  description: "Transform your business with our powerful SaaS platform. Get started with flexible pricing plans and enterprise-grade features.",
 };
 
 export default function RootLayout({
