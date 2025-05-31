@@ -10,7 +10,7 @@ services:
       - DATABASE_URL=${DATABASE_URL}
 
   admin:
-    image: ghcr.io/shemaikuzwe/next-turborepo-starter/next-client:${GIT_COMMIT_HASH:-latest}
+    image: ghcr.io/shemaikuzwe/next-turborepo-starter/next-admin:${GIT_COMMIT_HASH:-latest}
     ports:
       - "3000:3000"
     restart: unless-stopped
