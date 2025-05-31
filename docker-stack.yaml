@@ -7,7 +7,6 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=PRODUCTION
-      - DATABASE_URL=${DATABASE_URL}
 
   admin:
     image: ghcr.io/shemaikuzwe/next-turborepo-starter/next-admin:${GIT_COMMIT_HASH:-latest}
