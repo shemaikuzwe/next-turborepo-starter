@@ -5,7 +5,7 @@ import PricingSection from "@/components/pricing-page"
 import FAQSection from "@/components/faq-section"
 import Footer from "@/components/footer"
 
-// export const dynamic ="force-dynamic"
+export const dynamic ="force-dynamic"
 export default function LandingPage() {
   return (
     <main className="min-h-screen">

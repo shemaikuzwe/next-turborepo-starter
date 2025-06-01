@@ -15,7 +15,8 @@ export const metadata: Metadata = {
   title: "SaaSify - The Complete SaaS Solution",
   description: "Transform your business with our powerful SaaS platform. Get started with flexible pricing plans and enterprise-grade features.",
 };
-
+// If you want to make all pages dynamic
+//export const dynamic="force-dynamic"
 export default function RootLayout({
   children,
 }: Readonly<{

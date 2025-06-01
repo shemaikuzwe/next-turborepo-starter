@@ -25,15 +25,12 @@ RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
 
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/full/ .
-COPY .env ./
 RUN pnpm install --frozen-lockfile
 RUN pnpm prisma generate --schema=./packages/db/prisma/schema.prisma
 
 
 #Build the client app
 RUN pnpm turbo run build
-#Push changes to database
-RUN pnpm prisma db push --skip-generate --schema=./packages/db/prisma/schema.prisma
 
 # -----------------------------------
 FROM base AS runner

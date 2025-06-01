@@ -2,7 +2,7 @@ name: pipeline
 on:
   push:
     branches:
-      - "main"
+      - "with-db"
 permissions:
   contents: read
   packages: write
@@ -20,9 +20,6 @@ jobs:
         run: |
           corepack enable
           corepack prepare pnpm@9.0.0 --activate
-      - name: Create env file
-        run: |
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
       - name: Install dependencies
         run: pnpm install
       - name: Run generate
@@ -37,11 +34,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
-      - name: Create env file
-        run: |
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
-      
+      # no Database URL needed at image build time
       - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:

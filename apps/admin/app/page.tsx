@@ -2,6 +2,8 @@ import StatsCard from "@/components/stats-card";
 import { getProductsCount } from "@/lib/data";
 import { Layout } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export default function page() {
   const productsCount=getProductsCount();
   return (
