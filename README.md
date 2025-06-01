@@ -13,9 +13,10 @@ A modern Next.js monorepo starter template built with Turborepo.
 ## Features
 
 - **Monorepo Structure**: Built with Turborepo for efficient workspace management
-- **Multiple Next.js Apps**: 
+- **Apps**: 
   - Client app
   - Admin app
+  - Database
 - **Database Integration**: PostgreSQL with Prisma ORM
 - **Docker Support**: Containerization with multi-stage builds
 - **CI/CD Pipeline**: GitHub Actions workflow for testing and image building
@@ -76,8 +77,7 @@ This solves Tailwind css intellisense issue in vscode
 The project is configured for deployment with Docker:
 - Client app exposed on port 3001
 - Admin app exposed on port 3000
-- **Database** not dockerised bcs i found it hard in Next js and it required `export const dynamic="force-dynamic"` which
-  Disables prerender and it is not supported by **dynamic I/O** Flag.
+- **Database** dockerised using `export const dynamic="force-dynamic"` on **page.tsx** or **layout.tsx** to disable prerender on dynamic pages
 - Environment variables passed through Docker for configuration
 
 ## Project Structure
@@ -102,5 +102,5 @@ The project is configured for deployment with Docker:
 Create a `.env` file in the root directory with:
 
 ```
-DATABASE_URL=postgresql://username:password@yourhost:5432/dbname
+DATABASE_URL=postgresql://postgres:1234@db:5432/dbname
 ```
