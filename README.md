@@ -77,7 +77,7 @@ The project is configured for deployment with Docker:
 - Client app exposed on port 3001
 - Admin app exposed on port 3000
 - **Database** not dockerised bcs i found it hard in Next js and it required `export const dynamic="force-dynamic"` which
-  Disables prerender and it is not supported by **dynamic I/O** Flag.
+  Disables prerender.Checkout **with-db** branch.
 - Environment variables passed through Docker for configuration
 
 ## Project Structure
